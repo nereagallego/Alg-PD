@@ -17,21 +17,24 @@ int maxCifras(int arr[], int n)
     for (int i = 1; i < n; i++)
         if (arr[i] > mx)
             mx = arr[i];
-    return countDigits(mx);
+    return mx;
 }
 
 void sort (int arr[], int exp, int n){
     int output[n], count[10] = {0};
 
     for (int i = 0; i < n; i++){
+        cout << arr[i] << " " << (arr[i]/exp)%10 << endl;
         count[(arr[i]/exp)%10]++;
     }
 
     for(int i = 1; i < 10; i ++){
         count[i] += count[i-1]; 
+        cout << count[i] << " ";
     }
+    cout << endl;
 
-    for(int i = 1; i < n; i++){
+    for(int i = n-1; i >= 0; i--){
         output[count[(arr[i]/exp)%10]-1] = arr[i];
         count[(arr[i]/exp)%10]--;
     }
@@ -41,18 +44,20 @@ void sort (int arr[], int exp, int n){
     }
 }
 
-void radixsort(int arr[], int n){
-    int max = maxCifras(arr, n);
-    
-    for (int exp = pow(10,max) ; exp > 0; exp /= 10)
-        sort(arr, n, exp);
-}
-
 void printVector(int arr[], int n){
     for(int i = 0; i < n; i ++){
         cout << arr[i] << " " ;
     }
     cout << endl;
+}
+
+void radixsort(int arr[], int n){
+    int max = maxCifras(arr, n);
+    
+    for (int exp = 1 ; exp < max; exp *= 10){
+        sort(arr, exp, n);
+        printVector(arr,n);
+    }
 }
 
 int main(int argc, char *argv[]){
