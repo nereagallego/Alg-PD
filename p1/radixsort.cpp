@@ -24,15 +24,15 @@ void sort (int arr[], int exp, int n){
     int output[n], count[10] = {0};
 
     for (int i = 0; i < n; i++){
-        cout << arr[i] << " " << (arr[i]/exp)%10 << endl;
+    //    cout << arr[i] << " " << (arr[i]/exp)%10 << endl;
         count[(arr[i]/exp)%10]++;
     }
 
     for(int i = 1; i < 10; i ++){
         count[i] += count[i-1]; 
-        cout << count[i] << " ";
+    //    cout << count[i] << " ";
     }
-    cout << endl;
+ //   cout << endl;
 
     for(int i = n-1; i >= 0; i--){
         output[count[(arr[i]/exp)%10]-1] = arr[i];
@@ -54,15 +54,15 @@ void printVector(int arr[], int n){
 void radixsort(int arr[], int n){
     int max = maxCifras(arr, n);
     
-    for (int exp = 1 ; exp < max; exp *= 10){
+    for (int exp = 1 ; exp > 0; exp *= 10){
         sort(arr, exp, n);
-        printVector(arr,n);
+     //   printVector(arr,n);
     }
 }
 
 int main(int argc, char *argv[]){
     int n = 10;
-    int vector[n] = {4 , 85, 6 , 14, 98, 100, 4789, 234, 024, 45756};
+    int vector[n] = {4 , 85, 6 , 14, 98, 100, 8789, 234, 024, 45756};
     printVector(vector, n);
     radixsort(vector, n);
     printVector(vector,n);
