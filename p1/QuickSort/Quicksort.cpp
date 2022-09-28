@@ -1,6 +1,5 @@
 /* C++ implementation of QuickSort */
-#include <bits/stdc++.h>
-using namespace std;
+#include "QuickSort.hpp"
 
 // A utility function to swap two elements
 void swap(int* a, int* b)
@@ -68,23 +67,12 @@ void quickSort(int arr[], int low, int high)
 }
 
 /* Function to print an array */
-void printArray(int arr[], int size)
+void printArrayquicksort(int arr[], int size)
 {
 	int i;
 	for (i = 0; i < size; i++)
 		cout << arr[i] << " ";
 	cout << endl;
-}
-
-// Driver Code
-int main()
-{
-	int arr[] = { 10, 7, 8, 9, 1, 5 };
-	int n = sizeof(arr) / sizeof(arr[0]);
-	quickSort(arr, 0, n - 1);
-	cout << "Sorted array: \n";
-	printArray(arr, n);
-	return 0;
 }
 
 // This code is contributed by rathbhupendra

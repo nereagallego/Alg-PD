@@ -1,10 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h> 
-#include <string>
-#include "iostream"
-#include <cmath>
-
-using namespace std;
+#include "Radixsort.hpp"
 
 int countDigits(int n){
     string aux = to_string(n);
@@ -60,11 +54,11 @@ void radixsort(int arr[], int n){
     }
 }
 
-int main(int argc, char *argv[]){
-    int n = 10;
-    int vector[n] = {4 , 85, 6 , 14, 98, 100, 8789, 234, 024, 45756};
-    printVector(vector, n);
-    radixsort(vector, n);
-    printVector(vector,n);
-    return 0;
-}
+// int main(int argc, char *argv[]){
+//     int n = 10;
+//     int vector[n] = {4 , 85, 6 , 14, 98, 100, 8789, 234, 024, 45756};
+//     printVector(vector, n);
+//     radixsort(vector, n);
+//     printVector(vector,n);
+//     return 0;
+// }
