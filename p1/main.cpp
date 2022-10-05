@@ -1,5 +1,5 @@
 #include "MergeSort/Mergesort.hpp"
-#include "QuickSort/QuickSort.hpp"
+#include "QuickSort/Quicksort.hpp"
 #include "Radixsort/Radixsort.hpp"
 #include <fstream>
 #include <string>

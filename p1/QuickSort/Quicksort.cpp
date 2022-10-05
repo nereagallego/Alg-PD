@@ -1,5 +1,5 @@
 /* C++ implementation of QuickSort */
-#include "QuickSort.hpp"
+#include "Quicksort.hpp"
 
 // A utility function to swap two elements
 void swap(int* a, int* b)
