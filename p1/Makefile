@@ -30,8 +30,8 @@ RADIX=${RADIX_LIB}/Radixsort
 all: ${EJEC}
 #---------------------------------------------------------
 # "linkar"
-${EJEC}: ${EJEC}.o ${QUICK}.o ${MERGE}.o #${RADIX}.o 
-	${CC} ${EJEC}.o ${QUICK}.o ${MERGE}.o -o ${EJEC} ${CPPFLAGS} ${LDFLAGS}
+${EJEC}: ${EJEC}.o ${QUICK}.o ${MERGE}.o ${RADIX}.o 
+	${CC} ${EJEC}.o ${QUICK}.o ${MERGE}.o ${RADIX}.o -o ${EJEC} ${CPPFLAGS} ${LDFLAGS}
 
 #---------------------------------------------------------
 # compilar

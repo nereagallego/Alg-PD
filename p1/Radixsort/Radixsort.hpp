@@ -1,15 +1,4 @@
 #pragma once
-#include <stdio.h>
-#include <stdlib.h> 
-#include <string>
-#include "iostream"
-#include <cmath>
-#include <fstream>
-#include <string>
-#include <iostream>
-#include <list>
-
-using namespace std;
 
 int countDigits(int n);
 
