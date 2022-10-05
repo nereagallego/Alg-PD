@@ -66,13 +66,4 @@ void quickSort(int arr[], int low, int high)
 	}
 }
 
-/* Function to print an array */
-void printArrayquicksort(int arr[], int size)
-{
-	int i;
-	for (i = 0; i < size; i++)
-		cout << arr[i] << " ";
-	cout << endl;
-}
-
 // This code is contributed by rathbhupendra

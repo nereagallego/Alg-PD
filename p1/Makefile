@@ -30,8 +30,8 @@ RADIX=${RADIX_LIB}/Radixsort
 all: ${EJEC}
 #---------------------------------------------------------
 # "linkar"
-${EJEC}: ${EJEC}.o ${QUICK}.o ${MERGE}.o ${RADIX}.o 
-	${CC} ${EJEC}.o ${QUICK}.o ${MERGE}.o ${RADIX}.o -o ${EJEC} ${CPPFLAGS} ${LDFLAGS}
+${EJEC}: ${EJEC}.o ${QUICK}.o ${MERGE}.o #${RADIX}.o 
+	${CC} ${EJEC}.o ${QUICK}.o ${MERGE}.o -o ${EJEC} ${CPPFLAGS} ${LDFLAGS}
 
 #---------------------------------------------------------
 # compilar
@@ -42,8 +42,8 @@ ${QUICK}.o: ${QUICK}.hpp ${QUICK}.cpp
 ${MERGE}.o: ${MERGE}.hpp ${MERGE}.cpp
 	${CC} -c ${MERGE}.cpp -o ${MERGE}.o ${CPPFLAGS}
 
-${RADIX}.o: ${RADIX}.hpp ${RADIX}.cpp
-	${CC} -c ${RADIX}.cpp -o ${RADIX}.o ${CPPFLAGS}
+#${RADIX}.o: ${RADIX}.hpp ${RADIX}.cpp
+#	${CC} -c ${RADIX}.cpp -o ${RADIX}.o ${CPPFLAGS}
 #---------------------------------------------------------
 # Cuidado con lo que se pone aquí, que se borra sin preguntar
 clean:

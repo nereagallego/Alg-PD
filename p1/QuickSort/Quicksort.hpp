@@ -19,7 +19,4 @@ low --> Starting index,
 high --> Ending index */
 void quickSort(int arr[], int low, int high);
 
-/* Function to print an array */
-void printArrayquicksort(int arr[], int size);
-
 // This code is contributed by rathbhupendra

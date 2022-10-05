@@ -79,13 +79,5 @@ void mergeSort(int array[], int const begin, int const end)
 	merge(array, begin, mid, end);
 }
 
-// UTILITY FUNCTIONS
-// Function to print an array
-void printArray(int A[], int size)
-{
-	for (auto i = 0; i < size; i++)
-		cout << A[i] << " ";
-}
-
 // This code is contributed by Mayank Tyagi
 // This code was revised by Joshua Estes

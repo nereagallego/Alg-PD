@@ -38,13 +38,6 @@ void sort (int arr[], int exp, int n){
     }
 }
 
-void printVector(int arr[], int n){
-    for(int i = 0; i < n; i ++){
-        cout << arr[i] << " " ;
-    }
-    cout << endl;
-}
-
 void radixsort(int arr[], int n){
     int max = maxCifras(arr, n);
     
@@ -54,11 +47,45 @@ void radixsort(int arr[], int n){
     }
 }
 
-// int main(int argc, char *argv[]){
-//     int n = 10;
-//     int vector[n] = {4 , 85, 6 , 14, 98, 100, 8789, 234, 024, 45756};
-//     printVector(vector, n);
-//     radixsort(vector, n);
-//     printVector(vector,n);
-//     return 0;
-// }
+void readData(string filepath, list<int>& out) {
+    ifstream file(filepath);
+
+    if (file.is_open())
+    {
+        string content;
+        while(std::getline(file, content)) {
+            out.push_front(stoi(content));
+        }
+
+        file.close();
+    } else {
+        std::cout << "no abre el fichero" << std::endl;
+    }
+
+}
+
+void printArray(int arr[], int n){
+    for(int i = 0; i < n; i ++){
+        cout << i << ": " << arr[i] << endl ;
+    }
+    cout << endl;
+}
+
+int main(int argc, char *argv[]){
+    // int n = 10;
+    // int vector[n] = {4 , 85, 6 , 14, 98, 100, 8789, 234, 024, 45756};
+    std::list<int> numbers = std::list<int>();
+    string filepath = "chiki.txt";
+    readData(filepath, numbers);
+
+    int n = numbers.size();
+    int arr[n];
+    int k = 0;
+    for (int const &i: numbers) {
+        arr[k++] = i;
+    }
+
+    radixsort(arr, n);
+    printArray(arr, n);
+    return 0;
+}
