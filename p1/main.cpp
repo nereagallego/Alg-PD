@@ -4,6 +4,7 @@
 #include <fstream>
 #include <string>
 #include <iostream>
+#include <chrono>
 
 using namespace std;
 
@@ -35,7 +36,7 @@ void readData(string filepath, std::list<int>& out) {
 
 int main(int argc, char *argv[]){
     std::list<int> numbers = std::list<int>();
-    string filepath = "chiki.txt";
+    string filepath = "fichero2.txt";
 
     readData(filepath, numbers);
     
@@ -46,10 +47,18 @@ int main(int argc, char *argv[]){
         arr[k++] = i;
     }
 
-    //quickSort(arr, 0, n - 1);
+    auto start = chrono::high_resolution_clock::now();
+    quickSort(arr, 0, n - 1);
     //mergeSort(arr, 0, n - 1);
-    radixsort(arr, n);
+    //radixsort(arr, n);
+    auto stop = chrono::high_resolution_clock::now();
+
+    auto sort_duration = chrono::duration_cast<chrono::microseconds>(stop - start);
+
     cout << "Sorted array: \n";
     printArray(arr, n);
+
+    cout << "Time: " << sort_duration.count() << " ms" << endl;
+
     return 0;
 }
