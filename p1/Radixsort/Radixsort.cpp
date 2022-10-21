@@ -27,6 +27,24 @@ int maxCifras(int arr[], int n)
     return mx;
 }
 
+int max(int arr[], int n){
+    int max = 0;
+    for(int i = 1; i < n; i ++){
+        if(arr[i] > max)
+            max = i;
+    }
+    return max;
+}
+
+int min(int arr[], int n){
+    int min = arr[0];
+    for(int i = 1; i < n; i ++){
+        if(arr[i] < min)
+            min = arr[i];
+    }
+    return min;
+}
+
 void sort (int arr[], int exp, int n){
     int output[n], count[10] = {0};
     for (int i = 0; i < n; i++){
@@ -35,7 +53,7 @@ void sort (int arr[], int exp, int n){
 
     for(int i = 1; i < 10; i ++){
         count[i] += count[i-1]; 
-        cout << count[i] << " " << endl;
+    //    cout << count[i] << " " << endl;
     }
  //   cout << endl;
 
