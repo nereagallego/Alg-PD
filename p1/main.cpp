@@ -73,14 +73,12 @@ void experimento(string fichero){
     }
     cout << "| " << setw(17) << mean << "|";
     mean = 0;
-    for(int i = 0; i < 1; i ++){
+    for(int i = 0; i < 5; i ++){
         int max_n = max(arr,n);
         auto start = chrono::high_resolution_clock::now();
-        quickSort(arr, 0, n - 1, max_n);
+        quickSort(arr, 0, n - 1);
         auto stop = chrono::high_resolution_clock::now();
-
         auto sort_duration = chrono::duration_cast<chrono::microseconds>(stop - start);
-
         mean += sort_duration.count() / 5;
         int k = 0;
         for (int const &j: numbers) {

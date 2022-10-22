@@ -30,7 +30,7 @@ int maxCifras(int arr[], int n)
 int max(int arr[], int n){
     int max = 0;
     for(int i = 1; i < n; i ++){
-        if(arr[i] > max)
+        if(arr[i] > arr[max])
             max = i;
     }
     return max;
