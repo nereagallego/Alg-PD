@@ -58,7 +58,7 @@ void experimento(string fichero){
     float mean = 0;
     
     cout << "| " << setw(25) << fichero; 
-    for(int i = 0; i < 5; i ++){
+    for(int i = 0; i < 5; i++){
         auto start = chrono::high_resolution_clock::now();
         radixsort(arr, n);
         auto stop = chrono::high_resolution_clock::now();
@@ -71,10 +71,10 @@ void experimento(string fichero){
             arr[k++] = j;
         }
     }
+    
     cout << "| " << setw(17) << mean << "|";
     mean = 0;
-    for(int i = 0; i < 5; i ++){
-        int max_n = max(arr,n);
+    for(int i = 0; i < 5; i++){
         auto start = chrono::high_resolution_clock::now();
         quickSort(arr, 0, n - 1);
         auto stop = chrono::high_resolution_clock::now();
@@ -86,9 +86,9 @@ void experimento(string fichero){
         }
     }
     cout << " " << setw(17) << mean << "|";
-    // print mean
+    
     mean = 0;
-    for(int i = 0; i < 5; i ++){
+    for(int i = 0; i < 5; i++){
         auto start = chrono::high_resolution_clock::now();
         mergeSort(arr, 0, n - 1);
         auto stop = chrono::high_resolution_clock::now();
@@ -102,7 +102,6 @@ void experimento(string fichero){
         }
     }
     cout << " " << setw(17) << mean << "|" << endl;
-    //print mean
 
 }
 

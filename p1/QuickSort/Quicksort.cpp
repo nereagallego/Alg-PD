@@ -1,53 +1,71 @@
-#include "Quicksort.hpp"
+/* C++ implementation of QuickSort */
+#include <bits/stdc++.h>
+using namespace std;
 
 // A utility function to swap two elements
 void swap(int* a, int* b)
 {
-    int t = *a;
-    *a = *b;
-    *b = t;
+	int t = *a;
+	*a = *b;
+	*b = t;
 }
-  
-/* This function takes last element as pivot, places
-the pivot element at its correct position in sorted
-array, and places all smaller (smaller than pivot)
-to left of pivot and all greater elements to right
-of pivot */
-int partition(int arr[], int low, int high)
+
+int middleOfThree(int a, int b, int c)
 {
-    int pivot = arr[high]; // pivot
-    int i
-        = (low
-           - 1); // Index of smaller element and indicates
-                 // the right position of pivot found so far
-  
-    for (int j = low; j <= high - 1; j++) {
-        // If current element is smaller than the pivot
-        if (arr[j] < pivot) {
-            i++; // increment index of smaller element
-            swap(&arr[i], &arr[j]);
-        }
-    }
-    swap(&arr[i + 1], &arr[high]);
-    return (i + 1);
+    // Checking for b
+    if ((a < b && b < c) || (c < b && b < a))
+       return b;
+ 
+    // Checking for a
+    else if ((b < a && a < c) || (c < a && a < b))
+       return a;
+ 
+    else
+       return c;
 }
+
+// function to rearrange array (find the partition point)
+int partition(int array[], int low, int high) {
+    
+  // select the element with middle value between first, second and last element
+  int pivot = middleOfThree(array[low], array[low+1], array[high]);
   
-/* The main function that implements QuickSort
-arr[] --> Array to be sorted,
-low --> Starting index,
-high --> Ending index */
-void quickSort(int arr[], int low, int high)
-{
-    if (low < high) {
-        /* pi is partitioning index, arr[p] is now
-        at right place */
-        int pi = partition(arr, low, high);
-  
-        // Separately sort elements before
-        // partition and after partition
-        quickSort(arr, low, pi - 1);
-        quickSort(arr, pi + 1, high);
+  // pointer for greater element
+  int i = (low - 1);
+
+  // traverse each element of the array
+  // compare them with the pivot
+  for (int j = low; j < high; j++) {
+    if (array[j] <= pivot) {
+        
+      // if element smaller than pivot is found
+      // swap it with the greater element pointed by i
+      i++;
+      
+      // swap element at i with element at j
+      swap(&array[i], &array[j]);
     }
-}
+  }
   
-// This code is contributed by rathbhupendra
+  // swap pivot with the greater element at i
+  swap(&array[i + 1], &array[high]);
+  
+  // return the partition point
+  return (i + 1);
+}
+
+void quickSort(int array[], int low, int high) {
+  if (low < high) {
+      
+    // find the pivot element such that
+    // elements smaller than pivot are on left of pivot
+    // elements greater than pivot are on righ of pivot
+    int pi = partition(array, low, high);
+
+    // recursive call on the left of pivot
+    quickSort(array, low, pi - 1);
+
+    // recursive call on the right of pivot
+    quickSort(array, pi + 1, high);
+  }
+}
