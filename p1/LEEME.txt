@@ -1,0 +1,3 @@
+compilar con make
+para borrar los ficheros creados tras la compilación: make clean
+ejecutar tras compilar: ./main

@@ -11,6 +11,15 @@
 
 using namespace std;
 
+int maxCifras(int arr[], int n)
+{
+    int mx = arr[0];
+    for (int i = 1; i < n; i++)
+        if (arr[i] > mx)
+            mx = arr[i];
+    return mx;
+}
+
 // Cuenta la cantidad de dígitos de un número
 int countDigits(int n){
     string aux = to_string(n);
