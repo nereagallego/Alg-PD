@@ -124,9 +124,9 @@ void printCabecera() {
 int main(int argc, char *argv[]){
     
     printCabecera();
+    experimento("ordenados.txt");
     experimento("aleatorios1.txt");
     experimento("aleatorios2.txt");
-    experimento("aleatorios3.txt");
     experimento("reales1.txt");
     experimento("reales2.txt");
     experimento("reales3.txt");
