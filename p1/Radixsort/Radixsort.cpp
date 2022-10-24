@@ -19,19 +19,23 @@ int countDigits(int n){
 
 void sort (int arr[], int exp, int n){
     int output[n], count[10] = {0};
+    // cuenta la cantidad de números que dividido por exp y módulo 10 corresponden a cada cifra
     for (int i = 0; i < n; i++){
         count[(arr[i]/exp)%10]++;
     }
 
+    // pone el inicio de cada intervalo de números
     for(int i = 1; i < 10; i ++){
         count[i] += count[i-1]; 
     }
 
+    // cada número lo coloca en su lugar correspondiente segun la cifra que yengan en exp
     for(int i = n-1; i >= 0; i--){
         output[count[(arr[i]/exp)%10]-1] = arr[i];
         count[(arr[i]/exp)%10]--;
     }
 
+    // copia output al array de salida
     for(int i = 0; i < n; i++){
         arr[i] = output[i];
     }

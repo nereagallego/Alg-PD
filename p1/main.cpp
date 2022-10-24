@@ -18,6 +18,12 @@ void printArray(int arr[], int size)
     cout << endl;
 }
 
+/**
+ * @brief lee los datos que hay en el fichero filepath y os deja en la lista out
+ * 
+ * @param filepath fichero que contiene un número en cada linea
+ * @param out lista donde se van a guardar los números
+ */
 void readData(string filepath, std::list<int>& out) {
     ifstream file(filepath);
 
@@ -35,13 +41,16 @@ void readData(string filepath, std::list<int>& out) {
 
 }
 
-void copyVector(const int v[], int  w[], int n){
-    for(int i = 0; i < n; i++){
-        w[i] = v[i];
-    }
-}
-
-
+/**
+ * @brief ejecuta la ordenación de números que hay en el fichero de nombre 
+ * fichero con cada uno de los tres algoritmos (radixsort, quicksort y 
+ * mergesort)
+ * Calcula el tiempo de ejecución con cada algoritmo 5 veces y muestra el tiempo
+ * medio de cada una de las cinco ejecuciones
+ * 
+ * 
+ * @param fichero fichero de números
+ */
 void experimento(string fichero){
     std::list<int> numbers = std::list<int>();
     
@@ -105,6 +114,7 @@ void experimento(string fichero){
 
 }
 
+// muestra la cabecera de la tabla de resultados
 void printCabecera() {
     cout << setfill('-') << setw(85) << "-" << endl << setfill(' ');
     cout << "| " << setw(25) << "nombre fichero " << "| t_radixsort (us) | t_quicksort (us) | t_mergesort (us) |" << endl;
