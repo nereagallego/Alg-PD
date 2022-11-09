@@ -1,16 +1,20 @@
 #pragma once
 
 #include "minisat-master/minisat/core/Solver.h"
+#include "tablero/Tablero.hpp"
 
-static const int _rows = 9;
-static const int _columns = 9;
-static const int _values = 9;
+
 class Solver{
     Minisat::Solver resolutor;
+    Tablero t;
+    int _rows;
+    int _columns;
+    int _values;
+    
     
 public:
 
-    Solver();
+    Solver(const string file);
 
     void initVariables();
 
@@ -24,6 +28,11 @@ public:
     // comprueba que haya al menos un valor en cada celda
     void unValorPorCelda();
 
-    bool solve();
+    bool resuelve();
+
+    bool crearTablero(Tablero const&);
+
+    Tablero obtenerSolucion();
+
 
 };

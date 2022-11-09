@@ -1,6 +1,11 @@
 #include "Solver.hpp"
 
-Solver::Solver(){
+Solver::Solver(const string file){
+    Tablero t(file);
+    crearTablero(t);
+    _rows = t.getRows();
+    _columns = t.getColumns();
+    _values = t.getValues();
     initVariables();
     unValorPorCelda();
     noValoresDuplicados();
@@ -80,6 +85,59 @@ void Solver::unValorPorCelda() {
     }
 }
 
-bool Solver::solve() {
+bool Solver::resuelve() {
     return resolutor.solve();
+}
+
+
+bool esValido(Tablero const& b) {
+    if (b.size() != b.getRows()) {
+        return false;
+    }
+    for (int row = 0; row < b.getRows(); ++row) {
+        if (b.tablero[row].size() != b.getRows()) {
+            return false;
+        }
+        for (int col = 0; col < b.getColumns(); ++col) {
+            auto value = b.tablero[row][col];
+            if (value < 0 || value > b.getValues()) {
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
+bool Solver::crearTablero(Tablero const& b) {
+    assert(esValido(t) && "Provided board is not valid!");
+  //  assert(is_valid(b) && "Provided board is not valid!");
+    bool ret = true;
+    for (int row = 0; row < _rows; ++row) {
+        for (int col = 0; col < _columns; ++col) {
+            auto value = b.tablero[row][col];
+            if (value != 0) {
+                ret &= resolutor.addClause(Minisat::mkLit(toVar(row, col, value - 1)));
+            }
+        }
+    }
+    return ret;
+}
+
+Tablero Solver::obtenerSolucion(){
+   // Tablero t(file);
+
+    for (int row = 0; row < _rows; ++row) {
+        for (int col = 0; col < _columns; ++col) {
+            int found = 0;
+            for (int val = 0; val < _values; ++val) {
+                if (resolutor.modelValue(toVar(row, col, val)).isTrue()) {
+                    ++found;
+                    t.tablero[row][col] = val + 1;
+                }
+            }
+            assert(found == 1 && "The SAT solver assigned one position more than one value");
+            (void)found;
+        }
+    }
+    return t;
 }
