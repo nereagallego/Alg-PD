@@ -28,8 +28,8 @@ OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWA
 #include <functional>
 #include <limits>
 
-#include "minisat/core/ThrowOOMException.h"
-#include "minisat/mtl/IntTypes.h"
+#include "../core/ThrowOOMException.h"
+#include "../mtl/IntTypes.h"
 
 namespace Minisat {
 
