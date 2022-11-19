@@ -11,8 +11,8 @@ Solver::Solver(const string file){
     noValoresDuplicados();
 }
 
-Minisat::Var toVar(int row, int column, int value) {
-    assert(row >= 0 && row < _rows    && "Attempt to get var for nonexistant row");
+Minisat::Var toVar(int row, int column, int value, int _rows, int _columns, int _values) {
+    assert(row >= 0 && row < _rows && "Attempt to get var for nonexistant row");
     assert(column >= 0 && column < _columns && "Attempt to get var for nonexistant column");
     assert(value >= 0 && value < _values   && "Attempt to get var for nonexistant value");
     return row * _columns * _values + column * _values + value;
@@ -42,7 +42,7 @@ void Solver::noValoresDuplicados(){
         for (int value = 0; value < _values; ++value) {
             Minisat::vec<Minisat::Lit> literals;
             for (int column = 0; column < _columns; ++column) {
-                literals.push(Minisat::mkLit(toVar(row, column, value)));
+                literals.push(Minisat::mkLit(toVar(row, column, value,_rows, _columns, _values)));
             }
             exactamenteUnValor(literals);
         }
@@ -52,7 +52,7 @@ void Solver::noValoresDuplicados(){
         for (int value = 0; value < _values; ++value) {
             Minisat::vec<Minisat::Lit> literals;
             for (int row = 0; row < _rows; ++row) {
-                literals.push(Minisat::mkLit(toVar(row, column, value)));
+                literals.push(Minisat::mkLit(toVar(row, column, value, _rows, _columns, _values)));
             }
             exactamenteUnValor(literals);
         }
@@ -64,7 +64,7 @@ void Solver::noValoresDuplicados(){
                 Minisat::vec<Minisat::Lit> literals;
                 for (int rr = 0; rr < 3; ++rr) {
                     for (int cc = 0; cc < 3; ++cc) {
-                        literals.push(Minisat::mkLit(toVar(r + rr, c + cc, value)));
+                        literals.push(Minisat::mkLit(toVar(r + rr, c + cc, value, _rows, _columns, _values)));
                     }
                 }
                 exactamenteUnValor(literals);
@@ -78,7 +78,7 @@ void Solver::unValorPorCelda() {
         for (int column = 0; column < _columns; ++column) {
             Minisat::vec<Minisat::Lit> literals;
             for (int value = 0; value < _values; ++value) {
-                literals.push(Minisat::mkLit(toVar(row, column, value)));
+                literals.push(Minisat::mkLit(toVar(row, column, value, _rows, _columns, _values)));
             }
             exactamenteUnValor(literals);
         }
@@ -116,7 +116,7 @@ bool Solver::crearTablero(Tablero const& b) {
         for (int col = 0; col < _columns; ++col) {
             auto value = b.tablero[row][col];
             if (value != 0) {
-                ret &= resolutor.addClause(Minisat::mkLit(toVar(row, col, value - 1)));
+                ret &= resolutor.addClause(Minisat::mkLit(toVar(row, col, value - 1, _rows, _columns, _values)));
             }
         }
     }
@@ -130,7 +130,7 @@ Tablero Solver::obtenerSolucion(){
         for (int col = 0; col < _columns; ++col) {
             int found = 0;
             for (int val = 0; val < _values; ++val) {
-                if (resolutor.modelValue(toVar(row, col, val)).isTrue()) {
+                if (resolutor.modelValue(toVar(row, col, val, _rows, _columns, _values)).isTrue()) {
                     ++found;
                     t.tablero[row][col] = val + 1;
                 }
