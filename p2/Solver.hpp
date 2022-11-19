@@ -1,6 +1,6 @@
 #pragma once
 
-#include "minisat-master/minisat/core/Solver.h"
+#include "minisat/minisat/core/Solver.h"
 #include "tablero/Tablero.hpp"
 
 

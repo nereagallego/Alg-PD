@@ -1,6 +1,7 @@
 #include <iostream>
 #include <stdlib.h>
 #include "tablero/Tablero.hpp"
+#include "Solver.hpp"
 
 using namespace std;
 

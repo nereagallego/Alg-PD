@@ -20,20 +20,24 @@ EJEC = main
 # directorio y clase para semáfo
 TABLERO_LIB=./tablero
 TABLERO=${TABLERO_LIB}/Tablero
+SOLVER=Solver
 #---------------------------------------------------------
 #directorio y clase para manejo de logs
 all: ${EJEC}
 #---------------------------------------------------------
 # "linkar"
-${EJEC}: ${EJEC}.o  ${TABLERO}.o
-	${CC} ${EJEC}.o ${TABLERO}.o -o ${EJEC} ${CPPFLAGS}
+${EJEC}: ${EJEC}.o  ${TABLERO}.o ${SOLVER}.o
+	${CC} ${EJEC}.o ${TABLERO}.o ${SOLVER}.o -o ${EJEC} ${CPPFLAGS}
 
 #---------------------------------------------------------
 # compilar
 ${TABLERO}.o: ${TABLERO}.hpp ${TABLERO}.cpp
 	${CC} -c ${TABLERO}.cpp -o ${TABLERO}.o ${CPPFLAGS}
 
+${SOLVER}.o: ${SOLVER}.hpp ${SOLVER}.cpp
+	${CC} -c ${SOLVER}.cpp -o ${SOLVER}.o ${CPPFLAGS}
+
 #---------------------------------------------------------
 # Cuidado con lo que se pone aquí, que se borra sin preguntar
 clean:
-	$(RM) ${TABLERO}.o ${EJEC}.o ${EJEC}
+	$(RM) ${TABLERO}.o ${EJEC}.o ${EJEC} ${SOLVER}.o

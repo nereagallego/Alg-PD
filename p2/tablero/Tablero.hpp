@@ -4,11 +4,12 @@
 #include <vector>
 #include <string.h>
 #include <assert.h>
+#include <fstream>
 
 using namespace std;
 
 class Tablero {
-    int n;
+    int _n;
 public:
     vector<vector<int>> tablero;
 
