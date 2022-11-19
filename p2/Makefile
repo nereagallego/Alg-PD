@@ -21,13 +21,14 @@ EJEC = main
 TABLERO_LIB=./tablero
 TABLERO=${TABLERO_LIB}/Tablero
 SOLVER=Solver
+INCLUDE = -IC:minisat
 #---------------------------------------------------------
 #directorio y clase para manejo de logs
 all: ${EJEC}
 #---------------------------------------------------------
 # "linkar"
 ${EJEC}: ${EJEC}.o  ${TABLERO}.o ${SOLVER}.o
-	${CC} ${EJEC}.o ${TABLERO}.o ${SOLVER}.o -o ${EJEC} ${CPPFLAGS}
+	${CC} ${EJEC}.o ${TABLERO}.o ${SOLVER}.o -o ${EJEC} -L minisat ${CPPFLAGS}
 
 #---------------------------------------------------------
 # compilar
@@ -35,7 +36,7 @@ ${TABLERO}.o: ${TABLERO}.hpp ${TABLERO}.cpp
 	${CC} -c ${TABLERO}.cpp -o ${TABLERO}.o ${CPPFLAGS}
 
 ${SOLVER}.o: ${SOLVER}.hpp ${SOLVER}.cpp
-	${CC} -c ${SOLVER}.cpp -o ${SOLVER}.o ${CPPFLAGS}
+	${CC} ${INCLUDE} -c ${SOLVER}.cpp -o ${SOLVER}.o ${CPPFLAGS}
 
 #---------------------------------------------------------
 # Cuidado con lo que se pone aquí, que se borra sin preguntar
