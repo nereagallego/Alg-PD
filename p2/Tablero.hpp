@@ -10,6 +10,14 @@ using namespace std;
 
 class Tablero {
     int _n;
+
+private:
+    bool is_number(const std::string& s)
+    {
+        std::string::const_iterator it = s.begin();
+        while (it != s.end() && std::isdigit(*it)) ++it;
+        return !s.empty() && it == s.end();
+    }
 public:
     vector<vector<int>> tablero;
 
@@ -25,7 +33,7 @@ public:
         }
         char c; 
         int i = 0;
-        int n,n1;
+        int n,n1,n2;
         fin >> n;
         fin >> n1;
         vector<vector<int>> t(n, vector<int>(n1,0));
@@ -35,9 +43,9 @@ public:
 
         for(int i = 0; i < n; i ++){
             for(int j = 0; j < n1; j ++){
-                fin >> c;
-                if(c >= '1' && c <= '9'){
-                    tablero[i][j] = c - '0';
+                fin >> s;
+                if(is_number(s)){
+                    tablero[i][j] = std::stoi(s);
                 }
             }
         }

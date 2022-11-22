@@ -13,6 +13,7 @@ int grid[N][N] = {
    {0, 5, 0, 1, 0, 0, 0, 0, 0},
    {0, 0, 0, 8, 0, 6, 0, 0, 0}
 };
+
 bool isPresentInCol(int col, int num){ //check whether num is present in col or not
    for (int row = 0; row < N; row++)
       if (grid[row][col] == num)

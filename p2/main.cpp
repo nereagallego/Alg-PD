@@ -12,6 +12,7 @@ int main(int argc, char** argv) {
     auto t1 = std::chrono::high_resolution_clock::now();
     SolverOwn s(board_file);
     Tablero t = s.getTablero();
+
     if (!s.crearTablero(t)) {
         std::clog << "There is a contradiction in the parsed!\n";
         return 2;
