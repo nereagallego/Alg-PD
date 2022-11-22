@@ -86,5 +86,6 @@
         "span": "cpp",
         "stop_token": "cpp",
         "syncstream": "cpp"
-    }
+    },
+    "cmake.sourceDirectory": "${workspaceFolder}/p2"
 }

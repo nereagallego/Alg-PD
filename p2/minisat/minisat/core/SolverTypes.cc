@@ -2,7 +2,7 @@
 // that were used to optimize Minisat::vec<T> for them.
 // If it fails to compile, it is not neccessarily wrong, just weird.
 
-#include "../core/SolverTypes.h"
+#include "minisat/core/SolverTypes.h"
 
 #include <type_traits>
 

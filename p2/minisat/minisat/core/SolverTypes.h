@@ -25,11 +25,11 @@ OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWA
 #include <cassert>
 #include <algorithm>
 
-#include "../mtl/IntTypes.h"
-#include "../mtl/Alg.h"
-#include "../mtl/Vec.h"
-#include "../mtl/Map.h"
-#include "../mtl/Alloc.h"
+#include "minisat/mtl/IntTypes.h"
+#include "minisat/mtl/Alg.h"
+#include "minisat/mtl/Vec.h"
+#include "minisat/mtl/Map.h"
+#include "minisat/mtl/Alloc.h"
 
 namespace Minisat {
 

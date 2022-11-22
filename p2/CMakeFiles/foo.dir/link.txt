@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/foo.dir/main.cpp.o CMakeFiles/foo.dir/SolverOwn.cpp.o CMakeFiles/foo.dir/Tablero.cpp.o -o foo  minisat/libminisat.a 
