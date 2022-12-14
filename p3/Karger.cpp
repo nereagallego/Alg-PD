@@ -2,6 +2,7 @@
 // undirected, unweighted and connected graph.
 // Based https://www.geeksforgeeks.org/kargers-algorithm-for-minimum-cut-set-1-introduction-and-implementation/
 #include <iostream>
+#include <fstream>
 //#include <stdlib.h>
 #include <time.h>
 #include <cmath>
@@ -31,12 +32,6 @@ struct Graph
     std::vector<Edge> edge;
 };
  
-// A structure to represent a subset for union-find
-struct subset
-{
-    int parent;
-    int rank;
-};
  
 // Function prototypes for union-find (These functions are defined
 // after kargerMinCut() )
@@ -49,6 +44,11 @@ double fRand(double fMin,double fMax){
    re.seed(rand()%10000);
    double a_random_double = unif(re);
    return a_random_double;
+}
+
+double fRandBiased(double fMin, double fMax) {
+    srand((unsigned)time(NULL));
+    return ((double)rand()/(double)RAND_MAX);
 }
  
 // A very basic implementation of Karger's randomized
@@ -70,69 +70,30 @@ int kargerMinCut(struct Graph* graph)
     // 2 vertices.
     while (vertices > 2)
     {
-       // Pick a random edge
-       float rand = fRand(0.0,1.0);
-       int arista = 0;
-       float probAcum = 0.0;
-       for(int j = 0; j < E; j ++){
+        fprintf(stdout, "----------------------------------\n");
+        // Pick a random edge
+        //float rand = fRand(0.0,1.0);
+        float rand = fRandBiased(0.0,1.0);
+        int arista = 0;
+        float probAcum = 0.0;
+        for(int j = 0; j < E; j ++){
             if(rand < probAcum + edge[j].prob){
                 arista = j; 
                 break;
             } else {
                 probAcum += edge[j].prob;
             }
-       }
- 
-       // Find vertices (or sets) of two corners
-       // of current edge
-    //   int subset1 = find(subsets, edge[arista].src);
-    //   int subset2 = find(subsets, edge[arista].dest);
- 
-       // If two corners belong to same subset,
-       // then no point considering this edge
-    //   if (subset1 == subset2) {
-        //    std::cout << "me atasque" << std::endl;
-    //        continue;
-    //   }
- 
-       // Else contract the edge (or combine the
-       // corners of edge into one vertex)
-          printf("Contracting edge %d-%d\n",
-                 edge[arista].src, edge[arista].dest);
-          vertices--;
-          edge[arista].prob = 0;
-          Union(graph, edge[arista].src, edge[arista].dest);
+        }
+        fprintf(stdout, "Contracting edge %d-%d\n", edge[arista].src, edge[arista].dest);
+        vertices--;
+        edge[arista].prob = 0;
+        Union(graph, edge[arista].src, edge[arista].dest);
+        edge = graph->edge;
     }
- 
-    // Now we have two vertices (or subsets) left in
-    // the contracted graph, so count the edges between
-    // two components and return the count.
-  /*  int cutedges = 0;
-    for (int i=0; i<E; i++)
-    {
-        int subset1 = find(subsets, edge[i].src);
-        int subset2 = find(subsets, edge[i].dest);
-        if (subset1 != subset2)
-          cutedges++;
-    }*/
  
     return graph->E;
 }
 
-
- 
-// A utility function to find set of an element i
-// (uses path compression technique)
-int find(struct subset subsets[], int i)
-{
-    // find root and make root as parent of i
-    // (path compression)
-    if (subsets[i].parent != i)
-      subsets[i].parent =
-             find(subsets, subsets[i].parent);
- 
-    return subsets[i].parent;
-}
 
 void calcularProbabilidad(struct Graph* g){
     int E = g->E;
@@ -143,7 +104,7 @@ void calcularProbabilidad(struct Graph* g){
     std::cout << "peso total " << pesoTotal << std::endl;
     for(int i = 0; i < E; i++){
         g->edge[i].prob = float((float)g->edge[i].weight / (float)pesoTotal);
-        std::cout << "prob " << i << " " << g->edge[i].prob << std::endl;
+        std::cout << g->edge[i].src << "-" << g->edge[i].dest << " prob: " << g->edge[i].prob << " weight: " << g->edge[i].weight << std::endl;
     }
 }
 
@@ -151,18 +112,33 @@ void calcularProbabilidad(struct Graph* g){
 // (uses union by rank)
 void Union(struct Graph* g, int x, int y)
 {
+  //  vector<Edge> edge = g->edge;
+
+    int eliminadas = 0;
     for(int i = 0; i < g->E; i ++){
-        if(g->edge[i].src == y && ! g->edge[x].dest == x){
+
+        if((g->edge[i].src == x && g->edge[i].dest == y ) || (g->edge[i].dest == x && g->edge[i].src == y)){
+       
+        } else if(g->edge[i].src == y && g->edge[i].dest != x){
+
             g->edge[i].src = x;
-        } else if(g->edge[i].dest == y && ! g->edge[x].src == x){
-            g->edge[i].src = x;
-        } else {
-            auto it = g->edge.begin()+i;
-            g->edge.erase(it);
-            g->E --;
-           // g->V --;
+
+        } else if(g->edge[i].dest == y && g->edge[i].src != x){
+
+            g->edge[i].dest = x;
+
         }
     }
+
+    for(int i = 0; i < g->E; i ++){
+        if((g->edge[i].src == x && g->edge[i].dest == y ) || (g->edge[i].dest == x && g->edge[i].src == y)){
+            auto it = g->edge.begin()+i;
+            g->edge.erase(it);
+            eliminadas ++;
+        } 
+    }
+    g->E -= eliminadas;
+
     for(int i = 0; i < g->E; i++){
         int suma = 1;
         for(int j = 0; j < g->E; j++){
@@ -191,43 +167,33 @@ struct Graph* createGraph(int V, int E)
 }
  
 // Driver program to test above functions
-int main()
+int main(int argc, char *argv[])
 {
-    /* Let us create following unweighted graph
-        0------1
-        | \    |
-        |   \  |
-        |     \|
-        2------3   */
-    int V = 4;  // Number of vertices in graph
-    int E = 5;  // Number of edges in graph
+
+    ifstream fin;
+    fin.open(argv[1], ios::in);
+
+    if(!fin.is_open()){
+        cerr << "No se abre el fichero" << endl;
+        exit(1);
+    }
+    int V, E, a, b, w;
+    std::vector<Edge> aux_edges;
+    fin >> V;
+    while (fin >> a >> b >> w)
+    {
+        Edge e;
+        e.src = a;
+        e.dest = b;
+        e.weight = w;
+        e.prob = 0.0;
+        aux_edges.push_back(e);
+        E++;
+    }
+
     struct Graph* graph = createGraph(V, E);
- 
-    // add edge 0-1
-    graph->edge[0].src = 0;
-    graph->edge[0].dest = 1;
-    graph->edge[0].weight = 5;
- 
-    // add edge 0-2
-    graph->edge[1].src = 0;
-    graph->edge[1].dest = 2;
-    graph->edge[1].weight = 1;
- 
-    // add edge 0-3
-    graph->edge[2].src = 0;
-    graph->edge[2].dest = 3;
-    graph->edge[2].weight = 2;
- 
-    // add edge 1-3
-    graph->edge[3].src = 1;
-    graph->edge[3].dest = 3;
-    graph->edge[3].weight = 7;
- 
-    // add edge 2-3
-    graph->edge[4].src = 2;
-    graph->edge[4].dest = 3;
-    graph->edge[4].weight = 3;
- 
+    graph->edge = aux_edges;
+
     calcularProbabilidad(graph);
 
  
